@@ -1,0 +1,10 @@
+{
+  "title": "GET STARTED",
+  "clickable": false,
+  "collapsible": false,
+  "pages": [
+    "product-introduction",
+    "quickstart",
+    "using-this-document-in-a-programming-tool"
+  ]
+}
