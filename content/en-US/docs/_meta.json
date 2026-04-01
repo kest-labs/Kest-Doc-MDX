@@ -1,4 +1,6 @@
 {
   "title": "Product Docs",
+  "description": "Product setup guides, feature explanations, and best-practice workflows.",
+  "icon": "book-open-text",
   "pages": ["get-started"]
 }

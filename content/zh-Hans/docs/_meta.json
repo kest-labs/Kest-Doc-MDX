@@ -1,4 +1,6 @@
 {
   "title": "产品文档",
+  "description": "面向产品使用者的上手指南、功能说明和最佳实践。",
+  "icon": "book-open-text",
   "pages": ["get-started", "model-product"]
 }
