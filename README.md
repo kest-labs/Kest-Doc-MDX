@@ -244,6 +244,140 @@ lastUpdated: 2026-03-31
 - `final-final-v2.png`
 - 带空格的文件名
 
+## 图片怎么引用
+
+当前 `kest-docs` 已经支持在渲染阶段自动识别 MDX 里的图片路径，并将仓库内图片路径转换为最终可访问地址。
+
+内容作者不需要手动写 CDN URL。
+
+推荐写法有两种：
+
+1. 引用当前文档目录附近的相对图片
+
+```mdx
+![登录流程](./images/login-flow.png)
+```
+
+例如当前文档是：
+
+```text
+content/zh-Hans/docs/get-started/quickstart.mdx
+```
+
+则上面的写法会按当前文档目录解析为：
+
+```text
+content/zh-Hans/docs/get-started/images/login-flow.png
+```
+
+2. 引用共享图片目录
+
+```mdx
+![鉴权流程](/content/shared/images/auth-flow.png)
+```
+
+适用场景：
+
+- 多语言共用图片
+- 多篇文档共用图片
+- 希望路径稳定，不依赖当前文档所在目录
+
+还支持以下情况：
+
+- 外部绝对 URL 图片
+
+```mdx
+![外部图片](https://cdn.example.com/demo.png)
+```
+
+- HTML `img`
+
+```mdx
+<img src="./images/login-flow.png" alt="登录流程" />
+```
+
+当前规则：
+
+- 仓库内图片路径会由 docs-site 自动处理
+- 已经是 `http://` 或 `https://` 的图片地址会原样保留
+- `data:` 图片地址会原样保留
+
+不建议：
+
+- 直接在内容里硬编码业务 CDN 域名，除非这是明确要求
+- 使用难以理解的相对路径层级
+- 从文档路径跳出 `content/` 根目录
+
+更稳妥的习惯是：
+
+- 共享图片放 `content/shared/images/`
+- 页面局部图片放在当前文档附近的 `images/` 目录
+
+## 链接怎么写
+
+普通 Markdown 链接可以直接使用：
+
+```mdx
+[快速开始](/zh-Hans/docs/get-started/quickstart)
+```
+
+```mdx
+[OpenAI](https://openai.com)
+```
+
+当前 docs-site 行为：
+
+- 站内链接按站内路由处理
+- 外链会按外链方式渲染
+- `mailto:`、`tel:`、`#锚点` 也可以正常使用
+
+## 代码块怎么写
+
+行内代码直接写：
+
+```mdx
+使用 `pnpm dev` 启动开发环境。
+```
+
+块级代码使用 fenced code block：
+
+````mdx
+```ts
+import { Kest } from "@kest/sdk";
+
+const client = new Kest({
+  apiKey: process.env.KEST_API_KEY,
+});
+```
+````
+
+推荐总是带语言标记，例如：
+
+- `ts`
+- `tsx`
+- `js`
+- `bash`
+- `json`
+- `yaml`
+
+例如：
+
+````mdx
+```bash
+pnpm install
+pnpm dev
+```
+````
+
+当前 docs-site 已支持：
+
+- fenced code block 渲染
+- 常见语言的语法高亮
+- 深浅色主题下的代码高亮
+- 长代码块横向滚动
+
+如果你不写语言标记，代码块仍然可以渲染，但会按普通文本高亮处理。
+
 ## 改完内容后会不会自动发布
 
 这个仓库本身不负责发布。
