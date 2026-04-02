@@ -4,9 +4,38 @@ description: Install, configure, and complete the first basic flow.
 status: stable
 order: 20
 summary: Get started quickly with the minimum required setup.
-lastUpdated: 2026-03-31
+lastUpdated: 2026-04-02
 ---
 
 # Quickstart
 
-This page is a placeholder for the quickstart guide.
+The content below is a minimal example used to verify code block rendering in the Kest docs site.
+
+## 1. Install dependencies
+
+```bash
+pnpm install
+pnpm dev
+```
+
+## 2. Initialize the client
+
+```ts
+import { Kest } from "@kest/sdk";
+
+const client = new Kest({
+  apiKey: process.env.KEST_API_KEY,
+  baseUrl: "https://api.kest.dev/v1",
+});
+
+export async function runQuickstart() {
+  const result = await client.models.generate({
+    model: "kest-chat",
+    input: "Hello from Kest Docs",
+  });
+
+  return result;
+}
+```
+
+After rendering, the page should show language-aware code blocks with syntax highlighting.

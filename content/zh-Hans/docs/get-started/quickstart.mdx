@@ -4,9 +4,38 @@ description: 完成安装、初始化和第一个基础流程。
 status: stable
 order: 20
 summary: 用最少步骤完成第一次接入。
-lastUpdated: 2026-03-31
+lastUpdated: 2026-04-02
 ---
 
 # 快速开始
 
-这里先放快速开始内容占位。
+下面这段内容用于演示 Kest 文档站中的代码块渲染效果。
+
+## 1. 安装依赖
+
+```bash
+pnpm install
+pnpm dev
+```
+
+## 2. 初始化客户端
+
+```ts
+import { Kest } from "@kest/sdk";
+
+const client = new Kest({
+  apiKey: process.env.KEST_API_KEY,
+  baseUrl: "https://api.kest.dev/v1",
+});
+
+export async function runQuickstart() {
+  const result = await client.models.generate({
+    model: "kest-chat",
+    input: "Hello from Kest Docs",
+  });
+
+  return result;
+}
+```
+
+运行后，你应该可以在页面上看到带语言标记的代码块，并由前端自动渲染高亮样式。
