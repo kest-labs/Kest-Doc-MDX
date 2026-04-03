@@ -1,41 +1,77 @@
 ---
 title: 快速开始
-description: 完成安装、初始化和第一个基础流程。
+description: 完成安装、初始化和第一条请求测试，快速建立对 Kest CLI 的基本使用感受。
 status: stable
 order: 20
-summary: 用最少步骤完成第一次接入。
-lastUpdated: 2026-04-02
+summary: 用最少步骤跑通 Kest 的首次安装和基本命令。
+lastUpdated: 2026-04-03
 ---
 
 # 快速开始
 
-下面这段内容用于演示 Kest 文档站中的代码块渲染效果。
+这一页只保留最短路径，目标是在几分钟内完成三个动作：
 
-## 1. 安装依赖
+- 安装 CLI
+- 初始化项目
+- 发起第一条接口测试
+
+## 1. 安装 CLI
 
 ```bash
-pnpm install
-pnpm dev
+curl -fsSL https://kest.dev/install.sh | sh
 ```
 
-## 2. 初始化客户端
+当前安装方式由 GoReleaser 构建，支持：
 
-```ts
-import { Kest } from "@kest/sdk";
+- macOS
+- Linux
+- Windows
 
-const client = new Kest({
-  apiKey: process.env.KEST_API_KEY,
-  baseUrl: "https://api.kest.dev/v1",
-});
+## 2. 初始化项目
 
-export async function runQuickstart() {
-  const result = await client.models.generate({
-    model: "kest-chat",
-    input: "Hello from Kest Docs",
-  });
+在你的项目目录中执行：
 
-  return result;
-}
+```bash
+kest init
 ```
 
-运行后，你应该可以在页面上看到带语言标记的代码块，并由前端自动渲染高亮样式。
+这一步会为当前目录建立 Kest 所需的基础结构，方便你继续保存请求历史、流程文件和相关配置。
+
+## 3. 发送第一条请求
+
+直接测试一个接口：
+
+```bash
+kest get /api/users -a "status==200"
+```
+
+这里的 `-a` 表示断言。这个例子表达的是：
+
+- 发起一个 `GET /api/users`
+- 期望响应状态码为 `200`
+
+## 4. 捕获变量并继续链路
+
+如果某个请求返回了你后续还会用到的数据，可以在命令行里直接捕获：
+
+```bash
+kest post /api/login -d '{"user":"admin"}' -c "token=data.token"
+```
+
+这个命令表示：
+
+- 发送登录请求
+- 从响应体中提取 `data.token`
+- 把结果保存为后续步骤可以引用的变量 `token`
+
+## 5. 运行 Markdown 流程
+
+当你不想把一连串请求散落在命令历史里时，可以把它们写成流程文件：
+
+```bash
+kest run auth.flow.md
+```
+
+这也是 Kest 和传统 API 工具最不一样的地方之一。测试流程既可以被人读懂，也可以被 AI 直接生成、修改和维护。
+
+完成这些步骤后，下一页建议阅读《AI 原生工作流》。

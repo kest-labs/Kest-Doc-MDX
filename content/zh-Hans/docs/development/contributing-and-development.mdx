@@ -1,0 +1,48 @@
+---
+title: 参与开发
+description: 了解 Kest Monorepo 的本地开发方式，以及如何从 CLI 开始构建和贡献代码。
+status: stable
+order: 50
+summary: 使用 Go Workspaces 在一个仓库中同时开发 CLI、API 和 Web。
+lastUpdated: 2026-04-03
+---
+
+# 参与开发
+
+Kest 以 Monorepo 形式组织，因此你可以在同一个工作区内同时推进 CLI、后端和前端。
+
+## 克隆仓库
+
+```bash
+git clone https://github.com/kest-labs/kest.git
+cd kest
+```
+
+## 工作区说明
+
+仓库已经通过 `go.work` 组织 Go 工作区，方便多个模块在本地联动开发。
+
+这意味着：
+
+- 不需要把 CLI 单独拆出来维护
+- 本地修改可以更直接地联动到相关模块
+- 更适合跨组件排查问题和调试能力
+
+## 构建 CLI
+
+```bash
+cd cli
+go build -o kest .
+```
+
+构建完成后，你就可以在本地验证 CLI 相关改动。
+
+## 贡献建议
+
+如果你准备继续完善文档或代码，建议遵循以下顺序：
+
+1. 先明确改动属于 `cli/`、`api/` 还是 `web/`
+2. 再确认是否需要补充对应文档和示例流程
+3. 最后检查跨层行为是否保持一致
+
+Kest 的产品特点决定了很多功能都不是单层完成的，因此贡献时最好把“命令行为、平台语义和可视化结果”一起考虑。

@@ -1,6 +1,6 @@
 {
   "title": "Product Docs",
-  "description": "Product setup guides, feature explanations, and best-practice workflows.",
+  "description": "Concepts, quickstart guidance, and workflow documentation for AI-native API testing with Kest.",
   "icon": "book-open-text",
-  "pages": ["get-started"]
+  "pages": ["get-started", "platform", "development"]
 }

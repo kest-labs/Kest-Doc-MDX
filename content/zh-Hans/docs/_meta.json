@@ -1,6 +1,6 @@
 {
   "title": "产品文档",
-  "description": "面向产品使用者的上手指南、功能说明和最佳实践。",
+  "description": "面向 AI 原生 API 开发与测试场景的产品介绍、快速开始和工作流说明。",
   "icon": "book-open-text",
-  "pages": ["get-started", "model-product"]
+  "pages": ["get-started", "platform", "development"]
 }

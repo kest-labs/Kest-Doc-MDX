@@ -1,0 +1,7 @@
+{
+  "title": "Platform",
+  "description": "Understand Kest's AI-native workflow model and repository structure.",
+  "clickable": false,
+  "collapsible": false,
+  "pages": ["ai-native-workflow", "unified-monorepo"]
+}

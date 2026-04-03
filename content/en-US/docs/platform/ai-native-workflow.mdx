@@ -1,0 +1,66 @@
+---
+title: AI-Native Workflow
+description: Understand why Kest is built around Markdown flows, chained values, and AI-assisted diagnosis.
+status: stable
+order: 30
+summary: Kest does not bolt AI onto an old workflow. It designs the workflow itself for AI collaboration.
+lastUpdated: 2026-04-03
+---
+
+# AI-Native Workflow
+
+Most API tools were built around manual entry.
+
+Kest starts from a different assumption: AI is already part of everyday development, so the testing layer should be readable and operable by AI too.
+
+## Markdown-Native Flows
+
+Kest uses `.flow.md` as the core format for flows.
+
+That gives one artifact three jobs:
+
+- humans can read it like documentation
+- AI can generate and modify it directly
+- repositories can version it like normal text
+
+Compared with form-driven tools, this format is easier to review, store, and evolve.
+
+## Zero-Copy Chaining
+
+Real API testing rarely stops at one request.
+
+A common sequence looks like this:
+
+1. log in
+2. capture a token
+3. call a protected endpoint
+4. assert the result
+
+Kest is designed for that chain. Data captured from one request becomes input for the next without manual copy-paste.
+
+## AI Diagnosis
+
+When a test fails, `kest why` is meant to do more than report a failure. It uses local request history to help explain what probably went wrong.
+
+That matters in AI-assisted workflows because the useful question is not just "did it fail?" but:
+
+- where in the chain did it fail
+- whether the issue is in the request, data, or environment
+- which upstream step most likely caused the current error
+
+## Snapshot Testing
+
+Many regressions are not status-code failures. They are shifts in payload shape, key fields, or response content.
+
+Snapshot testing helps catch those changes without forcing you to write a large amount of boilerplate assertions.
+
+## Why This Fits Vibe Coding
+
+Vibe coding is not just about letting AI write code. It is about keeping natural language, code, commands, and verification in one continuous loop.
+
+Kest closes the API testing part of that loop:
+
+- AI can generate a flow
+- developers can execute it immediately in the terminal
+- results can feed back into AI-assisted iteration
+- teams can preserve the final workflow in the platform

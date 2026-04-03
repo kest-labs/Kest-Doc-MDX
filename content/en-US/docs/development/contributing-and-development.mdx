@@ -1,0 +1,48 @@
+---
+title: Contributing and Development
+description: Learn how to work locally in the Kest monorepo and where to start when building or contributing.
+status: stable
+order: 50
+summary: Use Go Workspaces to develop the CLI, backend, and web surfaces together.
+lastUpdated: 2026-04-03
+---
+
+# Contributing and Development
+
+Kest is organized as a monorepo, so you can work on the CLI, backend, and web app from the same workspace.
+
+## Clone the Repository
+
+```bash
+git clone https://github.com/kest-labs/kest.git
+cd kest
+```
+
+## Workspace Setup
+
+The repository already uses `go.work` to coordinate the Go workspace across modules.
+
+That makes it easier to:
+
+- keep the CLI in the same development context as related modules
+- validate local changes across boundaries
+- debug features that span more than one component
+
+## Build the CLI
+
+```bash
+cd cli
+go build -o kest .
+```
+
+After that, you can validate CLI changes locally.
+
+## Contribution Guidance
+
+If you are extending either the codebase or the docs, this order is a good default:
+
+1. identify whether the change belongs to `cli/`, `api/`, or `web/`
+2. update the related documentation and example flows
+3. verify that behavior stays aligned across layers
+
+Because Kest is cross-layer by design, contributions are usually strongest when command behavior, platform semantics, and visible UI outcomes stay in sync.

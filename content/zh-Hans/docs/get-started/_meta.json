@@ -1,11 +1,10 @@
 {
   "title": "开始使用",
+  "description": "用最短路径理解 Kest 的产品定位并完成第一次运行。",
   "clickable": false,
   "collapsible": false,
   "pages": [
     "product-introduction",
-    "quickstart",
-    "using-this-document-in-a-programming-tool",
-    "zhanweifu"
+    "quickstart"
   ]
 }

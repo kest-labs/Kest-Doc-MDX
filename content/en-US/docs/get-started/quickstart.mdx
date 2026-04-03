@@ -1,41 +1,77 @@
 ---
 title: Quickstart
-description: Install, configure, and complete the first basic flow.
+description: Install the CLI, initialize a project, and run your first request test with the shortest possible path.
 status: stable
 order: 20
-summary: Get started quickly with the minimum required setup.
-lastUpdated: 2026-04-02
+summary: Get Kest running in minutes with the core commands you will use first.
+lastUpdated: 2026-04-03
 ---
 
 # Quickstart
 
-The content below is a minimal example used to verify code block rendering in the Kest docs site.
+This page keeps the first-run path intentionally short. The goal is to do three things quickly:
 
-## 1. Install dependencies
+- install the CLI
+- initialize a project
+- run your first API test
+
+## 1. Install the CLI
 
 ```bash
-pnpm install
-pnpm dev
+curl -fsSL https://kest.dev/install.sh | sh
 ```
 
-## 2. Initialize the client
+The current release flow is built with GoReleaser and supports:
 
-```ts
-import { Kest } from "@kest/sdk";
+- macOS
+- Linux
+- Windows
 
-const client = new Kest({
-  apiKey: process.env.KEST_API_KEY,
-  baseUrl: "https://api.kest.dev/v1",
-});
+## 2. Initialize a Project
 
-export async function runQuickstart() {
-  const result = await client.models.generate({
-    model: "kest-chat",
-    input: "Hello from Kest Docs",
-  });
+Inside your project directory, run:
 
-  return result;
-}
+```bash
+kest init
 ```
 
-After rendering, the page should show language-aware code blocks with syntax highlighting.
+This creates the basic Kest project scaffolding so you can keep request history, flows, and related configuration in one place.
+
+## 3. Send Your First Request
+
+Test an endpoint directly:
+
+```bash
+kest get /api/users -a "status==200"
+```
+
+Here, `-a` adds an assertion. This example says:
+
+- send `GET /api/users`
+- expect the response status to be `200`
+
+## 4. Capture Values for Later Steps
+
+If a response contains data you need later, capture it in the CLI:
+
+```bash
+kest post /api/login -d '{"user":"admin"}' -c "token=data.token"
+```
+
+This command:
+
+- sends a login request
+- extracts `data.token` from the response body
+- stores it as `token` for later use
+
+## 5. Run a Markdown Flow
+
+Instead of keeping a chain of requests in shell history, write them as a flow:
+
+```bash
+kest run auth.flow.md
+```
+
+This is one of the core differences in Kest. A flow can be read by humans and manipulated directly by AI tools.
+
+The next recommended page is `AI-Native Workflow`.

@@ -1,0 +1,7 @@
+{
+  "title": "平台能力",
+  "description": "理解 Kest 的 AI 原生工作流设计和仓库组织方式。",
+  "clickable": false,
+  "collapsible": false,
+  "pages": ["ai-native-workflow", "unified-monorepo"]
+}
