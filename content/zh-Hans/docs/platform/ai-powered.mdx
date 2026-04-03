@@ -1,0 +1,67 @@
+---
+title: AI Powered
+description: 了解 Kest 如何利用本地请求历史，为 AI 诊断和生成能力提供上下文。
+status: stable
+order: 10
+summary: Kest 的 AI 能力不是外挂，而是建立在本地历史和真实请求链路之上。
+lastUpdated: 2026-04-03
+---
+
+# AI Powered
+
+Kest 的 AI 能力建立在一个关键前提上：它拥有你的本地请求历史。
+
+这意味着 AI 不是只看一条报错消息，而是可以结合真实的请求、响应、变量和调用顺序来理解问题。
+
+## 为什么这很重要
+
+大多数 API 工具即使接入 AI，也很难真正理解上下文，因为它们看不到：
+
+- 你刚刚调用了哪些接口
+- 上一步捕获了什么变量
+- 当前失败是不是由更早的请求引起的
+
+Kest 天然保留这些信息，因此更适合让 AI 参与诊断和生成。
+
+## 典型命令
+
+```bash
+kest why                           # AI 诊断上一条请求为什么失败
+kest suggest                       # AI 建议下一条更合理的 API 调用
+kest explain 42                    # AI 解释第 42 条记录做了什么
+kest review auth.flow.md           # AI 审查流程中的安全问题或逻辑漏洞
+kest gen "test user registration"  # AI 生成完整的 .flow.md
+```
+
+## AI 能做什么
+
+### 失败诊断
+
+`kest why` 的价值不是复述错误，而是尽量回答更接近根因的问题：
+
+- 是请求头错了，还是 body 不对
+- 是 token 失效，还是登录步骤本身就没成功
+- 是接口行为变了，还是断言写得不合理
+
+### 下一步建议
+
+在接口探索阶段，`kest suggest` 更像一个基于历史上下文的协作者。它会根据你已经做过的调用，建议更合理的下一步，而不是盲目生成命令。
+
+### 流程生成与审查
+
+Kest 不只支持“解释结果”，也支持“生成测试资产”：
+
+- 根据目标描述生成 `.flow.md`
+- 检查现有流程中的断言缺口
+- 提醒认证、权限、敏感数据处理等潜在风险
+
+## 模型与接入方式
+
+Kest 支持配置 OpenAI、Azure 以及兼容接口的 AI 提供方。
+
+```bash
+kest config set ai_key sk-xxx
+kest config set ai_model gpt-4o
+```
+
+这让你可以把 AI 选择权保留在自己的环境里，而不是被绑定在某个固定云端服务中。

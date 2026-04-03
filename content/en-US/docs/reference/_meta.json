@@ -1,0 +1,7 @@
+{
+  "title": "Reference",
+  "description": "Tool comparison, command reference, and local-first architecture overview.",
+  "clickable": false,
+  "collapsible": false,
+  "pages": ["comparison", "command-reference", "architecture"]
+}

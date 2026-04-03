@@ -1,7 +1,7 @@
 {
-  "title": "平台能力",
-  "description": "理解 Kest 的 AI 原生工作流设计和仓库组织方式。",
+  "title": "核心能力",
+  "description": "理解 Kest 的 AI 辅助能力、Markdown Flow 设计和进阶测试特性。",
   "clickable": false,
   "collapsible": false,
-  "pages": ["ai-native-workflow", "unified-monorepo"]
+  "pages": ["ai-powered", "markdown-flow", "more-features"]
 }

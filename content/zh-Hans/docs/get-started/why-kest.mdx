@@ -1,0 +1,61 @@
+---
+title: 为什么选择 Kest
+description: 理解 Kest 为什么更适合终端优先、AI 协作优先的 API 测试流程。
+status: stable
+order: 30
+summary: curl 太短暂，Postman 太沉重，Kest 则把测试上下文真正留了下来。
+lastUpdated: 2026-04-03
+---
+
+# 为什么选择 Kest
+
+Kest 是一款为 Vibe Coding 设计的 CLI 优先 API 测试工具。
+
+它的目标很直接：让你和 AI copilot 在同一个终端工作流里完成接口调试、变量传递、回放验证和问题定位，而不是在多个工具之间来回切换。
+
+## 先看一句话
+
+`curl` 是无状态的，`Postman` 太重，而 Kest 会记住整个过程。
+
+这句话背后对应的是三个真实问题：
+
+- 每次请求结束后，上下文都丢了
+- token、ID、会话信息需要手工复制粘贴
+- 接口一改动，就得整条链路重新手工验证
+
+## 没有 Kest vs 使用 Kest
+
+| 没有 Kest | 使用 Kest |
+|---|---|
+| `curl` 发完即忘，没有历史语义 | 每次请求都会自动记录到本地 |
+| token 需要复制粘贴到下一条命令 | `-c "token=data.token"` 后可直接用 `{{token}}` |
+| API 改动后只能靠人工重测 | `kest replay last --diff` 立刻看出差异 |
+| Postman 需要 GUI、账号和团队协作配置 | 100% 终端优先，100% 本地优先 |
+| 测试资产常常是庞大的 JSON 导出文件 | `.flow.md` 对人类和 AI 都可读 |
+| 调试时不断在 IDE、终端、GUI 之间切换 | 可以直接在 Cursor、Windsurf 等内置终端里完成 |
+
+## 为什么这更适合 Vibe Coding
+
+所谓 Vibe Coding，不只是“让 AI 帮你写代码”，而是让实现、调试、验证和修正形成一个连续闭环。
+
+Kest 让这个闭环变得更短：
+
+1. 你用 `kest` 发请求
+2. AI 直接看到输出和差异
+3. AI 建议修复方案
+4. 你用 `kest replay` 或 `.flow.md` 立即重放验证
+
+整个过程都发生在一个终端上下文里。
+
+> `kest` → AI 看结果 → AI 建议修复 → `kest replay` → 验证通过
+
+## Kest 最重要的产品取向
+
+Kest 并不想成为另一个更复杂的 API 面板工具，而是坚持几个明确方向：
+
+- `CLI-first`：命令行是主入口，不是附属能力
+- `Local-first`：历史、变量和调试上下文默认保留在本地
+- `AI-readable`：流程文件和命令输出都尽量让 AI 能直接理解
+- `Git-friendly`：测试资产应该像代码一样可审查、可 diff、可协作
+
+如果你已经习惯在终端和 AI 助手里开发，Kest 的价值会非常直接。

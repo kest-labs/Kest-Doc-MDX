@@ -1,0 +1,7 @@
+{
+  "title": "参考",
+  "description": "查看工具对比、命令参考和本地优先架构概览。",
+  "clickable": false,
+  "collapsible": false,
+  "pages": ["comparison", "command-reference", "architecture"]
+}

@@ -1,0 +1,64 @@
+---
+title: Unified Monorepo Structure
+description: Learn why the CLI, backend, and web console live in one flat, high-visibility monorepo.
+status: stable
+order: 10
+summary: A unified repository keeps the tool, platform logic, and interface evolving around the same product model.
+lastUpdated: 2026-04-03
+---
+
+# Unified Monorepo Structure
+
+Kest uses a flat, high-visibility monorepo for its core codebase.
+
+The reason is simple: the tool, platform logic, and interface should evolve around the same product model instead of drifting across separate repositories.
+
+## Current Structure
+
+```text
+cli/   - Kest CLI
+api/   - platform backend
+web/   - web console
+```
+
+## Why This Structure Works
+
+### It keeps tool and platform semantics aligned
+
+If the CLI and backend are too disconnected, request models, execution results, error semantics, and AI context tend to drift.
+
+### It supports cross-layer product work
+
+Many features naturally span layers:
+
+- the CLI executes and records
+- the API persists and coordinates collaboration
+- the web app visualizes flows, history, and team activity
+
+### It works better with AI-assisted development
+
+A unified repository makes it easier for AI tools to understand:
+
+- how CLI behavior maps to backend structures
+- how backend capabilities surface in the UI
+- which layers a change must touch
+
+## What Each Directory Owns
+
+### `cli/`
+
+- fast execution
+- markdown-native flows
+- terminal automation
+
+### `api/`
+
+- team collaboration
+- data persistence
+- AI diagnosis and platform logic
+
+### `web/`
+
+- flow visualization
+- team activity views
+- interactive entry points for platform features

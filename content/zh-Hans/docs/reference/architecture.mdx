@@ -1,0 +1,64 @@
+---
+title: 架构概览
+description: 了解 Kest 如何把终端、SQLite、本地变量历史和 AI 能力连接成一条闭环。
+status: stable
+order: 30
+summary: Kest 的核心架构是 terminal-first 和 local-first，而不是把数据发送到某个中心化云服务。
+lastUpdated: 2026-04-03
+---
+
+# 架构概览
+
+Kest 的核心架构可以概括成一句话：终端执行，本地存储，本地上下文驱动 AI。
+
+```text
+Terminal                              Local Storage
+┌──────────────────┐                 ┌──────────────┐
+│ kest get /users  │──auto-record──→│ SQLite DB    │
+│ kest post /login │──capture var──→│ Variables    │
+│ kest run flow.md │──assertions──→ │ History      │
+└──────────────────┘                 └──────┬───────┘
+                                            │
+                                   ┌────────▼────────┐
+                                   │ AI Engine       │
+                                   │ why · suggest   │
+                                   │ explain · review│
+                                   └─────────────────┘
+```
+
+## 三个核心层次
+
+### 终端执行层
+
+所有主要操作都从 CLI 发起：
+
+- 单次请求
+- Flow 执行
+- 快照验证
+- 回放和 diff
+
+### 本地存储层
+
+Kest 会把请求和变量自动记录到本地存储中，这一层通常包含：
+
+- 请求历史
+- 捕获变量
+- 响应结果
+- 回放与差异比较所需的上下文
+
+### AI 上下文层
+
+AI 并不是直接面对一个抽象 prompt，而是依赖本地历史来解释和生成内容。这也是 `why`、`suggest`、`review` 这类命令有价值的基础。
+
+## Local-first 原则
+
+Kest 的架构强调：
+
+- `100% local`
+- `No cloud by default`
+- `No account required`
+- `No telemetry as a prerequisite`
+
+这意味着你的请求数据、变量和调试过程默认不会离开你的机器。
+
+这套取向既是隐私选择，也是工作流选择，因为本地优先更适合快速调试、脚本化和 AI 协作。

@@ -1,0 +1,89 @@
+---
+title: Markdown Flow
+description: 了解为什么 Kest 使用 .flow.md 作为测试格式，以及它如何兼顾人类、AI 与 Git 工作流。
+status: stable
+order: 20
+summary: 在 Kest 里，文档不只是说明文，它本身就是可以执行的测试套件。
+lastUpdated: 2026-04-03
+---
+
+# Markdown Flow
+
+Kest 使用 `.flow.md` 作为测试流程格式。
+
+这背后的核心思想是：文档本身就应该成为测试套件，而不是另外再维护一份只有工具能读懂的配置文件。
+
+## 为什么不是表单或 JSON
+
+很多 API 工具最终会把测试资产变成结构复杂、难以 diff、难以审查的大型 JSON 文件。
+
+这种格式对机器友好，对人类和 AI 都不友好。
+
+Kest 反过来选择 Markdown，是因为它同时满足三件事：
+
+- 人可以直接读懂
+- AI 可以直接生成和改写
+- Git 可以直接做 diff 和 review
+
+## 一个简单示例
+
+~~~markdown
+```step
+@id login
+POST /api/login
+Content-Type: application/json
+{"user": "admin", "pass": "secret"}
+
+[Captures]
+token = data.token
+
+[Asserts]
+status == 200
+```
+
+```step
+@id profile
+GET /api/profile
+Authorization: Bearer {{token}}
+
+[Asserts]
+status == 200
+body.user == "admin"
+```
+~~~
+
+## 执行结果也保持可读
+
+```text
+$ kest run login.flow.md
+
+  ▶ login POST /api/login
+    ✅ 200 (142ms)
+
+  ▶ profile GET /api/profile
+    ✅ 200 (89ms)
+
+  Total: 2  Passed: 2  Time: 231ms
+```
+
+## 这种格式带来的直接收益
+
+### 对开发者
+
+- 更容易维护长链路测试
+- 更容易在 PR 中审查变更
+- 更适合在终端里快速阅读和修改
+
+### 对 AI
+
+- 可以直接理解步骤和意图
+- 可以根据描述生成完整流程
+- 可以在保留原意的前提下补断言、补捕获、补边界条件
+
+### 对团队
+
+- 测试资产不再锁在特定 GUI 工具里
+- 文档和测试可以共享同一份来源
+- 更适合进入代码仓库和 CI 流水线
+
+如果你的目标是“让测试像代码一样被协作”，那么 `.flow.md` 是 Kest 最关键的设计之一。

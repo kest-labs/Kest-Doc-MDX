@@ -1,0 +1,67 @@
+---
+title: AI Powered
+description: Learn how Kest uses local request history to give AI diagnosis and generation features real context.
+status: stable
+order: 10
+summary: Kest's AI layer is not a bolt-on. It is grounded in local history and actual request chains.
+lastUpdated: 2026-04-03
+---
+
+# AI Powered
+
+Kest's AI features start from one important advantage: it has access to your local request history.
+
+That means AI is not working from a single error message. It can reason from actual requests, responses, captured values, and execution order.
+
+## Why That Matters
+
+Most tools struggle to make AI genuinely useful for API debugging because they cannot see:
+
+- which endpoints you just called
+- what values were captured earlier
+- whether the current failure was caused by an upstream step
+
+Kest keeps that context by design, so AI can operate on something closer to the real workflow.
+
+## Typical Commands
+
+```bash
+kest why                           # Diagnose why the last request failed
+kest suggest                       # Suggest the next logical API call
+kest explain 42                    # Explain what record #42 did
+kest review auth.flow.md           # Audit a flow for security or logic issues
+kest gen "test user registration"  # Generate a complete .flow.md
+```
+
+## What the AI Layer Can Do
+
+### Diagnose Failures
+
+`kest why` should do more than restate an error. It tries to answer questions closer to root cause:
+
+- is the request malformed or is the body wrong
+- did the token expire, or did login fail upstream
+- did endpoint behavior change, or is the assertion weak
+
+### Suggest the Next Step
+
+During API exploration, `kest suggest` acts more like a context-aware collaborator. It looks at the sequence you have already run and proposes a plausible next move.
+
+### Generate and Review Flows
+
+Kest is not limited to explaining results. It can also help create and review test assets:
+
+- generate `.flow.md` files from a goal
+- spot assertion gaps in an existing flow
+- flag auth, permission, or sensitive-data risks
+
+## Model and Provider Configuration
+
+Kest supports OpenAI, Azure, and compatible API providers.
+
+```bash
+kest config set ai_key sk-xxx
+kest config set ai_model gpt-4o
+```
+
+That keeps model choice in your environment instead of hardwiring it to one hosted service.

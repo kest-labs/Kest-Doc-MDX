@@ -1,0 +1,64 @@
+---
+title: Architecture Overview
+description: Learn how Kest connects the terminal, local SQLite storage, variable history, and AI features into one loop.
+status: stable
+order: 30
+summary: Kest is terminal-first and local-first by design rather than centered around a hosted cloud service.
+lastUpdated: 2026-04-03
+---
+
+# Architecture Overview
+
+Kest's architecture can be summarized simply: terminal execution, local storage, and AI driven by local context.
+
+```text
+Terminal                              Local Storage
+┌──────────────────┐                 ┌──────────────┐
+│ kest get /users  │──auto-record──→│ SQLite DB    │
+│ kest post /login │──capture var──→│ Variables    │
+│ kest run flow.md │──assertions──→ │ History      │
+└──────────────────┘                 └──────┬───────┘
+                                            │
+                                   ┌────────▼────────┐
+                                   │ AI Engine       │
+                                   │ why · suggest   │
+                                   │ explain · review│
+                                   └─────────────────┘
+```
+
+## Three Core Layers
+
+### Terminal Execution
+
+The main operations all start in the CLI:
+
+- single requests
+- flow execution
+- snapshot verification
+- replay and diff
+
+### Local Storage
+
+Kest records requests and variables locally. This layer typically holds:
+
+- request history
+- captured variables
+- response results
+- context used for replay and diff
+
+### AI Context
+
+The AI layer is not reasoning over an isolated prompt. It depends on local history to explain and generate useful output. That is the foundation for commands such as `why`, `suggest`, and `review`.
+
+## The Local-First Principle
+
+Kest emphasizes:
+
+- `100% local`
+- `no cloud by default`
+- `no account required`
+- `no telemetry as a prerequisite`
+
+That means your request data, variables, and debugging flow do not need to leave your machine.
+
+This is both a privacy decision and a workflow decision, because local-first tooling fits rapid debugging, scripting, and AI-assisted iteration better.

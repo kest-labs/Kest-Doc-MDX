@@ -1,0 +1,61 @@
+---
+title: Why Kest
+description: Understand why Kest fits terminal-first, AI-assisted API development better than older tooling models.
+status: stable
+order: 30
+summary: curl forgets everything, Postman feels heavy, and Kest keeps the testing context intact.
+lastUpdated: 2026-04-03
+---
+
+# Why Kest
+
+Kest is a CLI-first API testing tool built for vibe coding.
+
+Its goal is simple: let you and your AI copilot debug APIs, chain values, replay flows, and verify fixes inside one terminal workflow instead of bouncing between disconnected tools.
+
+## The Short Version
+
+`curl` is stateless. `Postman` is heavy. Kest remembers the whole loop.
+
+That maps to three practical problems:
+
+- request context disappears after every command
+- tokens, IDs, and session values get copied by hand
+- any API change forces you to manually retest the whole chain
+
+## Without Kest vs With Kest
+
+| Without Kest | With Kest |
+|---|---|
+| `curl` forgets each response immediately | every request is auto-recorded locally |
+| tokens must be copied into the next command | `-c "token=data.token"` turns into reusable `{{token}}` |
+| regressions require manual re-testing | `kest replay last --diff` shows changes instantly |
+| Postman adds GUI, account, and setup overhead | terminal-first and local-first by default |
+| test assets become large JSON exports | `.flow.md` stays readable to humans and AI |
+| debugging means switching between IDE, terminal, and GUI | runs inline in Cursor, Windsurf, and similar terminals |
+
+## Why This Fits Vibe Coding
+
+Vibe coding is not just "AI writes code". It is a tighter loop between implementation, debugging, verification, and revision.
+
+Kest shortens that loop:
+
+1. you send a request with `kest`
+2. AI sees the output and diff
+3. AI suggests the fix
+4. you verify with `kest replay` or a `.flow.md`
+
+That whole cycle stays inside one terminal context.
+
+> `kest` → AI sees output → AI suggests fix → `kest replay` → verified
+
+## Kest's Product Direction
+
+Kest is not trying to become another heavier API dashboard. It is opinionated about a few things:
+
+- `CLI-first`: the command line is the primary surface
+- `Local-first`: history, variables, and debugging context stay on your machine
+- `AI-readable`: flows and output are designed so AI can work with them directly
+- `Git-friendly`: test assets should review, diff, and collaborate like normal code
+
+If you already build with a terminal and an AI copilot open all day, Kest fits that environment naturally.

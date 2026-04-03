@@ -1,0 +1,81 @@
+---
+title: More Features
+description: Explore Kest's advanced capabilities, including mock server, snapshot testing, replay, watch mode, gRPC, and streaming support.
+status: stable
+order: 30
+summary: Kest goes beyond one-off requests into replay, snapshots, mocking, and fast feedback loops.
+lastUpdated: 2026-04-03
+---
+
+# More Features
+
+Beyond basic HTTP requests and flow execution, Kest includes a set of capabilities designed for day-to-day debugging and regression work.
+
+## Mock Server
+
+You can start a zero-config mock service directly from recorded history:
+
+```bash
+kest mock --port 8080
+```
+
+Useful for:
+
+- frontend integration before the backend is ready
+- replaying recorded responses locally
+- spinning up a temporary testing surface fast
+
+## Snapshot Testing
+
+Like Jest, but for API responses:
+
+```bash
+kest snap /api/users
+kest snap /api/users --verify
+kest snap /api/users --update
+```
+
+This is especially useful for catching regressions where the status code stays the same but the payload changes.
+
+## Replay & Diff
+
+Replay the latest record and inspect the delta immediately:
+
+```bash
+kest replay last --diff
+```
+
+That helps with:
+
+- fast regression checks after endpoint changes
+- validating whether a bug fix restored the expected response
+- shortening the verify loop when working with AI
+
+## File Watch
+
+Use `.flow.md` files in a more TDD-like loop:
+
+```bash
+kest watch login.flow.md
+```
+
+When the flow changes, Kest reruns it automatically. That is useful when implementation and assertions are evolving together.
+
+## gRPC + TLS
+
+Kest is not limited to HTTP. It also supports gRPC and TLS scenarios:
+
+```bash
+kest grpc localhost:50051 pkg.Service/Method -p app.proto -d '{}'
+kest grpc api.example.com:443 pkg.Service/Method --tls --cert ca.pem
+```
+
+## SSE / LLM Streaming
+
+For SSE or LLM streaming responses, you can stay in the terminal:
+
+```bash
+kest post /v1/chat/completions -d '{"stream":true, ...}' --stream
+```
+
+That makes Kest useful not only for traditional REST APIs, but also for modern AI API debugging.

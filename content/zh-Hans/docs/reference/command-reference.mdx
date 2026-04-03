@@ -1,0 +1,71 @@
+---
+title: 命令参考
+description: 快速浏览 Kest 常用命令，包括 HTTP 请求、历史回放、测试执行和配置管理。
+status: stable
+order: 20
+summary: 这不是完整手册，而是一份更适合日常查阅的高频命令参考。
+lastUpdated: 2026-04-03
+---
+
+# 命令参考
+
+## HTTP Requests
+
+```bash
+kest get /api/users                              # GET
+kest post /api/users -d '{"name":"Alice"}'       # POST with JSON body
+kest put /api/users/1 -d '{"name":"Bob"}'        # PUT
+kest delete /api/users/1                         # DELETE
+kest post /api/upload -d @file.json              # Body from file
+```
+
+常用参数：
+
+```bash
+-H "Key: Value"       # Header
+-q "key=value"        # Query param
+-c "var=json.path"    # Capture variable
+-a "status==200"      # Assertion
+-v                    # Verbose
+--max-time 5000       # Timeout (ms)
+--retry 3             # Retry count
+--retry-delay 1000    # Retry delay (ms)
+--stream              # SSE streaming
+--var key=value       # Set variable
+```
+
+## History & Replay
+
+```bash
+kest history                # Recent records
+kest history -n 50          # Last 50
+kest show last              # Full request/response details
+kest show 42                # Specific record
+kest diff 100 last          # Compare two records
+kest replay last --diff     # Re-execute and compare
+```
+
+## Testing & Automation
+
+```bash
+kest run login.flow.md                  # Run flow file
+kest run login.flow.md --var key=val    # Run with variables
+kest run tests/ --parallel --jobs 8     # Parallel execution
+kest watch login.flow.md                # Auto-rerun on change
+kest snap /api/users                    # Save snapshot
+kest snap /api/users --verify           # Verify snapshot
+kest mock --port 8080                   # Mock server from history
+```
+
+## Configuration
+
+```bash
+kest init
+kest config set ai_key sk-xxx
+kest config set ai_model gpt-4o
+kest env set staging
+kest vars
+kest completion zsh
+```
+
+如果你已经掌握这些命令，基本就可以覆盖大多数日常接口调试和自动化测试场景。

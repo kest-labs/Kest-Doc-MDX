@@ -5,6 +5,7 @@
   "collapsible": false,
   "pages": [
     "product-introduction",
-    "quickstart"
+    "quickstart",
+    "why-kest"
   ]
 }

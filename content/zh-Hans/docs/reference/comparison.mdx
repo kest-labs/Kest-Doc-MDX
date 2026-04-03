@@ -1,0 +1,38 @@
+---
+title: 工具对比
+description: 从工作流角度对比 curl、Postman、Hurl 和 Kest。
+status: stable
+order: 10
+summary: Kest 的差异不只是一两个功能点，而是一整套更适合 AI 时代的 API 测试方式。
+lastUpdated: 2026-04-03
+---
+
+# 工具对比
+
+下面这张表更适合从工作流层面理解 Kest 的定位。
+
+| Feature | curl | Postman | Hurl | Kest |
+|---|:---:|:---:|:---:|:---:|
+| Zero config | ✅ | ❌ | ✅ | ✅ |
+| Auto history | ❌ | ❌ | ❌ | ✅ |
+| Variable chaining | ❌ | ✅ | ✅ | ✅ |
+| AI diagnosis | ❌ | ❌ | ❌ | ✅ |
+| AI test generation | ❌ | ❌ | ❌ | ✅ |
+| Mock server | ❌ | 💰 | ❌ | ✅ |
+| Snapshot testing | ❌ | 💰 | ❌ | ✅ |
+| File watch | ❌ | ❌ | ❌ | ✅ |
+| Replay & diff | ❌ | ❌ | ❌ | ✅ |
+| gRPC + TLS | ❌ | ❌ | ❌ | ✅ |
+| Git-friendly tests | ❌ | ❌ | ✅ | ✅ |
+| SSE streaming | ❌ | ❌ | ❌ | ✅ |
+| CI/CD ready | ❌ | ❌ | ✅ | ✅ |
+| 100% local | ✅ | ❌ | ✅ | ✅ |
+
+## 怎么理解这张表
+
+- `curl` 的优势是轻，但没有上下文管理能力
+- `Postman` 的优势是功能面广，但工作流偏 GUI 和账号体系
+- `Hurl` 在文本化测试上很强，但不会替你记录历史，也不提供 AI 协作层
+- `Kest` 的重点是把本地历史、变量链路、AI 和 Markdown 流结合在一起
+
+因此，Kest 的差异不在于“某一个功能”，而在于它把请求、回放、诊断和测试资产管理放进了同一个终端循环里。

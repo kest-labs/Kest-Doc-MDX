@@ -1,0 +1,89 @@
+---
+title: Markdown Flow
+description: Learn why Kest uses .flow.md as the test format and how it fits humans, AI, and Git-based workflows.
+status: stable
+order: 20
+summary: In Kest, documentation is not separate from the suite. The document itself becomes the test.
+lastUpdated: 2026-04-03
+---
+
+# Markdown Flow
+
+Kest uses `.flow.md` as its flow format.
+
+The core idea is simple: documentation should be executable instead of living beside a second, tool-only representation.
+
+## Why Not Forms or JSON
+
+Many API tools end up storing test assets as large, complex JSON blobs that are hard to diff, review, or reason about.
+
+That format is good for machines and poor for both humans and AI.
+
+Kest chooses Markdown because it does three jobs at once:
+
+- humans can read it directly
+- AI can generate and edit it directly
+- Git can diff and review it directly
+
+## A Simple Example
+
+~~~markdown
+```step
+@id login
+POST /api/login
+Content-Type: application/json
+{"user": "admin", "pass": "secret"}
+
+[Captures]
+token = data.token
+
+[Asserts]
+status == 200
+```
+
+```step
+@id profile
+GET /api/profile
+Authorization: Bearer {{token}}
+
+[Asserts]
+status == 200
+body.user == "admin"
+```
+~~~
+
+## The Output Stays Readable Too
+
+```text
+$ kest run login.flow.md
+
+  ▶ login POST /api/login
+    ✅ 200 (142ms)
+
+  ▶ profile GET /api/profile
+    ✅ 200 (89ms)
+
+  Total: 2  Passed: 2  Time: 231ms
+```
+
+## What This Format Enables
+
+### For Developers
+
+- easier maintenance for long request chains
+- better PR review for test changes
+- faster editing and reading inside the terminal
+
+### For AI
+
+- direct understanding of steps and intent
+- full flow generation from natural language
+- easier assertion, capture, and edge-case expansion without changing the structure
+
+### For Teams
+
+- test assets are no longer trapped in a GUI product
+- docs and tests can share the same source format
+- flows fit naturally into repositories and CI pipelines
+
+If the goal is to make tests collaborate like code, `.flow.md` is one of Kest's most important design choices.

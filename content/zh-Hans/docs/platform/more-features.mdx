@@ -1,0 +1,81 @@
+---
+title: More Features
+description: 浏览 Kest 的进阶能力，包括 Mock、Snapshot、Replay、Watch、gRPC 和流式响应支持。
+status: stable
+order: 30
+summary: Kest 不只是单次请求工具，它还覆盖回放、快照、Mock 和自动重跑等完整测试能力。
+lastUpdated: 2026-04-03
+---
+
+# More Features
+
+除了基础的 HTTP 请求和 Flow 执行，Kest 还覆盖了一组更适合日常调试和回归验证的能力。
+
+## Mock Server
+
+你可以直接基于历史记录启动一个零配置 Mock 服务：
+
+```bash
+kest mock --port 8080
+```
+
+这适合：
+
+- 前端联调前先模拟接口
+- 本地重现历史响应
+- 快速搭一个临时测试环境
+
+## Snapshot Testing
+
+像 Jest 一样，但对象是 API 响应：
+
+```bash
+kest snap /api/users
+kest snap /api/users --verify
+kest snap /api/users --update
+```
+
+这类能力特别适合发现“状态码没变，但返回内容变了”的回归。
+
+## Replay & Diff
+
+回放最近一次记录，并立刻看差异：
+
+```bash
+kest replay last --diff
+```
+
+这类能力适合：
+
+- 接口升级后的快速回归
+- 修复 bug 后确认响应是否回到预期
+- 和 AI 协作时缩短验证闭环
+
+## File Watch
+
+让 `.flow.md` 进入类似 TDD 的开发节奏：
+
+```bash
+kest watch login.flow.md
+```
+
+当流程文件变化时，Kest 会自动重跑，适合一边改实现、一边改断言的场景。
+
+## gRPC + TLS
+
+Kest 不只支持 HTTP，还支持 gRPC 与 TLS 场景：
+
+```bash
+kest grpc localhost:50051 pkg.Service/Method -p app.proto -d '{}'
+kest grpc api.example.com:443 pkg.Service/Method --tls --cert ca.pem
+```
+
+## SSE / LLM Streaming
+
+对于 SSE 或 LLM 流式输出，也可以直接在命令行里处理：
+
+```bash
+kest post /v1/chat/completions -d '{"stream":true, ...}' --stream
+```
+
+这让 Kest 不只是传统 REST 测试工具，也能覆盖现代 AI API 的调试需求。
